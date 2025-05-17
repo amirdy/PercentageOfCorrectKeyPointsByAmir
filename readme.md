@@ -1,42 +1,36 @@
-import numpy as np
+# PercentageOfCorrectKeyPoints
+ A python project that calculates a metric called PercentageOfCorrectKeyPoints.
 
-class PercentageOfCorrectKeyPoints:
-  """  PercentageOfCorrectKeyPoints class""" 
 
-  def __init__(self, relative_distance_threshold):
-    """ Initializes the BERT model.
+## Setup
 
-        Args:
-            relative_distance_threshold: the threshold for the percentage of correct keypoints.
-    """
-    self.relative_distance_threshold = relative_distance_threshold
+To get started with this package, follow the steps below.
 
-  def apply(self, y_true, y_pred):
-    """ Calculate the percentage of correct keypoints.
-        
-        Args: 
-             y_true (np.ndarray): Input tensor of shape (B, H, W, num_kp)
-             y_pred (np.ndarray): Input tensor of shape (B, H, W, num_kp)
-             
-        Returns:
-             float: the percentage of correct keypoints.
 
-    """
+### 1. Install Dependencies
 
-    assert y_true.shape == y_pred.shape,   " The shapes are different"
-    assert isinstance(y_true, np.ndarray), " The label array is not an np array"
-    assert isinstance(y_pred, np.ndarray), " The prediction array is not an np array"
+Install the required Python packages using `pip`:
 
-    
-    h = y_true.shape[1]  # get the H
+```bash
+pip install numpy
+```
 
-    # compute euclidian distance (default of the np.linalg.norm is L2)
-    dist = np.linalg.norm(y_true - y_pred, axis=-1) # shape : (B, H, W)
-    
-    # calculate the threshold
-    threshold = self.relative_distance_threshold * h
+### 2. Install the Package
+Clone the repository to your local machine:
 
-    # calculate the number of correct predictions
-    correct = np.sum(dist < threshold)  
+```bash
+pip install PercentageOfCorrectKeyPointsByAmir==0.1.1
+```
 
-    return correct/dist.size
+## Usage
+
+```python
+from PercentageOfCorrectKeyPointsByAmir.PercentageOfCorrectKeyPoints import PercentageOfCorrectKeyPoints
+
+y_true: np.ndarary  # true heatmaps of a batch of data, of shape (batch_size, h, w, num_keypoints), with values in range(0, 1)
+y_pred: np.ndarary  # predicted heatmaps of a batch of data, of shape (batch_size, h, w, num_keypoints), with values in range(0, 1)
+
+# a key-point will be assumed as correct, if predicted key-point is in a radial distance of (0.1 * image_height) pixels from true keypoint
+metric = PercentageOfCorrectKeyPoints(relative_distance_threshold=0.1)
+result = metric.apply(y_true, y_pred)
+```
