@@ -50,7 +50,8 @@ class PercentageOfCorrectKeyPoints:
     assert len(y_true.shape) == 4, " the number of dimensions is not 4"
  
     h = y_true.shape[1]  # get the H
-    
+
+    # get the coordinates
     true_coords = self.get_max_coords(y_true)  # shape : (B, num_kp, 2)
     pred_coords = self.get_max_coords(y_pred)  # shape : (B, num_kp, 2)
 
