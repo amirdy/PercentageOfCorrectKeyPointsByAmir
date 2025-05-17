@@ -1,4 +1,4 @@
-# PercentageOfCorrectKeyPoints
+# Percentage Of CorrectKey Points Calculator
  A python project that calculates a metric called PercentageOfCorrectKeyPoints.
 
 
@@ -16,7 +16,7 @@ pip install numpy
 ```
 
 ### 2. Install the Package
-Clone the repository to your local machine:
+Install the Package using the command below:
 
 ```bash
 pip install PercentageOfCorrectKeyPointsByAmir==0.1.1
